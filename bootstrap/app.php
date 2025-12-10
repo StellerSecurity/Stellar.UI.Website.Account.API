@@ -14,16 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withRateLimiting(function () {
-        RateLimiter::for('vpn-dashboard', function (Request $request) {
-            // Use token if present, otherwise fall back to IP
-            $key = 'vpn-dashboard:' . ($request->bearerToken() ?: $request->ip());
-
-            return [
-                Limit::perMinute(30)->by($key),
-            ];
-        });
-    })
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(
             at: '*',
