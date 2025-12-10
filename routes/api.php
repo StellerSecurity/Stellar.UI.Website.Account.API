@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\BillingController;
 use App\Http\Controllers\V1\DashboardController;
 use App\Http\Controllers\V1\LoginController;
 use App\Http\Controllers\V1\VpnDashboardController;
@@ -11,8 +12,15 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+Route::prefix('v1/billingcontroller')
+    ->middleware('throttle:10,1')
+    ->group(function () {
+        Route::get('index', [BillingController::class, 'index'])
+            ->name('billing.index');
+    });
+
 // Stellar Account dashboard (overview of all products)
-Route::get('/dashboard', [DashboardController::class, 'index'])
+Route::get('/v1/dashboardcontroller', [DashboardController::class, 'index'])
     // 60 requests per minute per IP
     ->middleware('throttle:60,1')
     ->name('account.dashboard');
