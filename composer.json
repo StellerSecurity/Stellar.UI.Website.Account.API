@@ -14,6 +14,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "stellarsecurity/application-insights-laravel": "^1.0",
+        "stellarsecurity/laravel-hardening": "^1.0",
         "stellarsecurity/user-laravel": "^1.0"
     },
     "require-dev": {
