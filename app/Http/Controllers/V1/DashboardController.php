@@ -3,11 +3,24 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Request;
+use StellarSecurity\DeviceApi\DeviceService;
+use StellarSecurity\SubscriptionLaravel\SubscriptionService;
+use StellarSecurity\UserApiLaravel\UserService;
 
 class DashboardController extends Controller
 {
 
-    public function index() {
+    public function __construct(private SubscriptionService $subscriptionService,
+                                private DeviceService $deviceService,
+                                private UserService $userService)
+    {
+
+    }
+
+    public function index(Request $request) {
+
+        $token = $request->bearerToken();
 
         $data = [
             'stellar_id' => [
